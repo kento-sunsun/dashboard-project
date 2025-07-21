@@ -1,18 +1,27 @@
 export function setupTabs() {
-  const homeTab = document.querySelector('[data-tab="home"]');
+  const homeLink = document.querySelector('[data-tab="home"]');
   const converterTab = document.querySelector('[data-tab="converter"]');
-  const homeSection = document.querySelector('#home');
-  const converterSection = document.querySelector('#converter');
+  const flashcardsTab = document.querySelector('[data-tab="flashcards"]'); // この行を追加
+  const homeSection = document.getElementById("home");
+  const converterSection = document.getElementById("converter");
+  const flashcardsSection = document.getElementById("flashcards"); // この行を追加
 
-  homeTab.addEventListener('click', (e) => {
-    e.preventDefault();
-    converterSection.classList.add('hidden');
-    homeSection.classList.remove('hidden');
+  homeLink.addEventListener("click", () => {
+    converterSection.classList.add("hidden");
+    flashcardsSection.classList.add("hidden"); // この行を追加
+    homeSection.classList.remove("hidden");
   });
 
-  converterTab.addEventListener('click', (e) => {
-    e.preventDefault();
-    homeSection.classList.add('hidden');
-    converterSection.classList.remove('hidden');
+  converterTab.addEventListener("click", () => {
+    homeSection.classList.add("hidden");
+    flashcardsSection.classList.add("hidden"); // この行を追加
+    converterSection.classList.remove("hidden");
+  });
+
+　// 以下の処理を追加
+  flashcardsTab.addEventListener("click", () => {
+    homeSection.classList.add("hidden");
+    converterSection.classList.add("hidden");
+    flashcardsSection.classList.remove("hidden"); 
   });
 }
