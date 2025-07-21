@@ -9,12 +9,10 @@ export function setupTabs() {
       
       const targetId = tab.dataset.tab;
 
-      // すべてのセクションを一旦非表示にする
       contentSections.forEach(section => {
         section.classList.add('hidden');
       });
 
-      // クリックされたタブに対応するセクションだけを表示する
       const targetSection = document.querySelector(`#${targetId}`);
       if (targetSection) {
         targetSection.classList.remove('hidden');
