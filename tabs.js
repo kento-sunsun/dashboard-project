@@ -1,27 +1,24 @@
+// tabs.js
 export function setupTabs() {
-  const homeLink = document.querySelector('[data-tab="home"]');
-  const converterTab = document.querySelector('[data-tab="converter"]');
-  const flashcardsTab = document.querySelector('[data-tab="flashcards"]'); // この行を追加
-  const homeSection = document.getElementById("home");
-  const converterSection = document.getElementById("converter");
-  const flashcardsSection = document.getElementById("flashcards"); // この行を追加
+  const tabItems = document.querySelectorAll('.sidebar-menu-item, .sidebar-home');
+  const contentSections = document.querySelectorAll('.content-section');
 
-  homeLink.addEventListener("click", () => {
-    converterSection.classList.add("hidden");
-    flashcardsSection.classList.add("hidden"); // この行を追加
-    homeSection.classList.remove("hidden");
-  });
+  tabItems.forEach(tab => {
+    tab.addEventListener('click', (e) => {
+      e.preventDefault();
+      
+      const targetId = tab.dataset.tab;
 
-  converterTab.addEventListener("click", () => {
-    homeSection.classList.add("hidden");
-    flashcardsSection.classList.add("hidden"); // この行を追加
-    converterSection.classList.remove("hidden");
-  });
+      // すべてのセクションを一旦非表示にする
+      contentSections.forEach(section => {
+        section.classList.add('hidden');
+      });
 
-　// 以下の処理を追加
-  flashcardsTab.addEventListener("click", () => {
-    homeSection.classList.add("hidden");
-    converterSection.classList.add("hidden");
-    flashcardsSection.classList.remove("hidden"); 
+      // クリックされたタブに対応するセクションだけを表示する
+      const targetSection = document.querySelector(`#${targetId}`);
+      if (targetSection) {
+        targetSection.classList.remove('hidden');
+      }
+    });
   });
 }

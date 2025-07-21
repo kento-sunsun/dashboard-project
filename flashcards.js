@@ -8,9 +8,59 @@ async function fetchFlashcards() {
   }
 }
 
-export async function setupFlashcards() {
-  const flashcardsList = document.getElementById("flashcards-list");
-  
+// flashcards.js
+export function setupFlashcards() {
+  const openModalBtn = document.querySelector('.add-word-btn');
+  const closeModalBtn = document.querySelector('.cancel-word-btn');
+  const modal = document.querySelector('#word-modal');
+  const wordForm = document.querySelector('#word-form');
+  const flashcardsList = document.querySelector('#flashcards-list');
+
+  if (!openModalBtn) return; // 要素がなければ何もしない
+
+  let cards = [
+    { id: 1, question: 'happy', answer: 'feeling or showing pleasure or contentment' },
+    { id: 2, question: 'book', answer: 'a written or printed work' },
+  ];
+
+  function renderCards() {
+    flashcardsList.innerHTML = ''; // 一旦リストを空にする
+    cards.forEach(card => {
+      const cardElement = document.createElement('div');
+      cardElement.className = 'flashcard-item'; // CSSでスタイルを当てるためのクラス
+      cardElement.textContent = card.question;
+      flashcardsList.appendChild(cardElement);
+    });
+  }
+
+  openModalBtn.addEventListener('click', () => {
+    modal.classList.remove('hidden');
+  });
+
+  closeModalBtn.addEventListener('click', () => {
+    modal.classList.add('hidden');
+  });
+
+  wordForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const questionInput = document.querySelector('#word-input');
+    const answerInput = document.querySelector('#meaning-input');
+
+    const newCard = {
+      id: Date.now(),
+      question: questionInput.value,
+      answer: answerInput.value,
+    };
+
+    cards.push(newCard);
+    questionInput.value = '';
+    answerInput.value = '';
+    modal.classList.add('hidden');
+    renderCards();
+  });
+
+  renderCards(); // 初期表示
+}
   async function readFlashcards() {
     const wordList = await fetchFlashcards();
     renderFlashcards(wordList);
@@ -59,5 +109,5 @@ export async function setupFlashcards() {
   })
 
   await readFlashcards();
-}
+
 
