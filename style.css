@@ -535,3 +535,27 @@ ul {
 .sidebar-home:hover {
   background-color: #d9e7f3;
 }
+/* セクション表示制御 */
+.content-section {
+  display: block;
+  transition: opacity 0.3s ease;
+}
+
+.hidden {
+  display: none;
+}
+
+/* サイドバーの見た目（最低限） */
+.sidebar-home,
+.sidebar-menu-item {
+  cursor: pointer;
+  padding: 12px 16px;
+  border: none;
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+.sidebar-home:hover,
+.sidebar-menu-item:hover {
+  background-color: #d0e8ff;
+}
