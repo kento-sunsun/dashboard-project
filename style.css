@@ -382,3 +382,72 @@ ul {
 .save-word:hover {
   background-color: #3e6690;
 }
+/* === アニメーション追加: 全体共通 === */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes popUp {
+  0% {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* === セクション表示時のアニメーション === */
+.content-section {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.content-section:not(.hidden) {
+  opacity: 1;
+  transform: translateY(0);
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* === ボタンホバーにアニメーション === */
+.add-word-btn,
+.save-word-btn,
+.cancel-word-btn {
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.add-word-btn:hover,
+.save-word-btn:hover,
+.cancel-word-btn:hover {
+  transform: scale(1.05);
+}
+
+/* === Flashcard表示にもアニメーションを追加 === */
+.flashcard {
+  animation: popUp 0.4s ease forwards;
+  transform-origin: top center;
+}
+
+/* === モーダルの表示時にふわっと登場 === */
+.modal-content {
+  animation: popUp 0.4s ease forwards;
+  transform-origin: center center;
+}
+
+/* === ホバー時のカードアイコンに変化 === */
+.flashcard-icons button {
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.flashcard-icons button:hover {
+  transform: scale(1.2);
+}
