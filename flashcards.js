@@ -14,7 +14,7 @@ export function setupFlashcards() {
   const closeModalBtn = document.querySelector('.cancel-word-btn');
   const modal = document.querySelector('#word-modal');
   const wordForm = document.querySelector('#word-form');
-  const flashcardsList = document.querySelector('#flashcards-list');
+  const flashcardsList = document.getElementById('#flashcards-list');
 
   if (!openModalBtn) return; // 要素がなければ何もしない
 
@@ -98,14 +98,15 @@ export function setupFlashcards() {
     }
   }
 
-  flashcardsList.addEventListener("click", event => {
-    const btn = event.target.closest(".flashcard-meaning");
-    if(btn){
-      const id = btn.getAttribute("data-toggle");
-      toggleMeaning(id);
-    }else{
-      return;
-    }
-  })
+  const flashcardsList = document.getElementById("flashcards-list");
+
+flashcardsList.addEventListener("click", event => {
+  const btn = event.target.closest(".flashcard-meaning");
+  if (btn) {
+    const id = btn.getAttribute("data-toggle");
+    toggleMeaning(id);
+  }
+});
+
 
   await readFlashcards();
