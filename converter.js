@@ -1,58 +1,55 @@
 export function setupConverter() {
-  const converterForm = document.querySelector(".converter-form");
-  const inputValue = document.querySelector(".converter-input");
-  const fromUnit = document.querySelector(".converter-from");
-  const toUnit = document.querySelector(".converter-to");
-  const result = document.querySelector(".converter-result");
+  const valueInput = document.querySelector('.converter-input');
+  const fromSelect = document.querySelector('.converter-from');
+  const toSelect = document.querySelector('.converter-to');
+  const resultDisplay = document.querySelector('.converter-result');
 
-  // ユニットデータを定義
-  const lengthUnits = [
-    { name: "meter", base: 1 },
-    { name: "kilometer", base: 1000 },
-    { name: "centimeter", base: 0.01 },
-    { name: "millimeter", base: 0.001 },
-    { name: "inch", base: 0.0254 },
-    { name: "foot", base: 0.3048 },
-    { name: "yard", base: 0.9144 },
-    { name: "mile", base: 1609.344 },
-  ];
+  const units = {
+    meter: 1,
+    kilometer: 1000,
+    centimeter: 0.01,
+    millimeter: 0.001,
+    inch: 0.0254,
+    foot: 0.3048,
+    yard: 0.9144,
+    mile: 1609.34,
+  };
 
-  // 選択肢を追加
-  function populateOptions() {
-    fromUnit.innerHTML = "";
-    toUnit.innerHTML = "";
-
-    lengthUnits.forEach((unit) => {
-      const option = `<option value="${unit.base}">${unit.name}</option>`;
-      fromUnit.innerHTML += option;
-      toUnit.innerHTML += option;
-    });
-
-    fromUnit.selectedIndex = 0; // 初期値
-    toUnit.selectedIndex = 1; // 初期値
+  function populateUnits() {
+    for (const unit in units) {
+      const optionFrom = document.createElement('option');
+      const optionTo = document.createElement('option');
+      optionFrom.value = unit;
+      optionFrom.textContent = unit;
+      optionTo.value = unit;
+      optionTo.textContent = unit;
+      fromSelect.appendChild(optionFrom);
+      toSelect.appendChild(optionTo);
+    }
+    fromSelect.value = 'meter';
+    toSelect.value = 'kilometer';
   }
 
-  // 変換を実行
   function convert() {
-    const value = parseFloat(inputValue.value);
-    const fromValue = parseFloat(fromUnit.value);
-    const toValue = parseFloat(toUnit.value);
+    const value = parseFloat(valueInput.value);
+    const from = fromSelect.value;
+    const to = toSelect.value;
 
-    if (isNaN(value)) {
-      result.textContent = "有効な数値を入力してください";
+    if (isNaN(value) || !units[from] || !units[to]) {
+      resultDisplay.textContent = 'Invalid input';
       return;
     }
 
-    const convertedValue = (value * fromValue) / toValue;
-    result.textContent = `${value} ${lengthUnits[fromUnit.selectedIndex].name} = ${convertedValue.toFixed(3)} ${lengthUnits[toUnit.selectedIndex].name}`;
+    const base = value * units[from];
+    const converted = base / units[to];
+
+    resultDisplay.textContent = `= ${converted.toFixed(4)} ${to}`;
   }
 
-  // イベントリスナーを設定
-  inputValue.addEventListener("input", convert);
-  fromUnit.addEventListener("change", convert);
-  toUnit.addEventListener("change", convert);
+  valueInput.addEventListener('input', convert);
+  fromSelect.addEventListener('change', convert);
+  toSelect.addEventListener('change', convert);
 
-  // 初期化
-  populateOptions();
-  convert(); // 初期計算を実行
+  populateUnits();
+  convert();
 }
