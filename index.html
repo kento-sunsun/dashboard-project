@@ -1,114 +1,137 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Dashboard</title>
-  <link rel="stylesheet" href="./style.css" />
-  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dashboard</title>
 
-<body>
-  <div class="dashboard-container">
-    <aside class="sidebar">
-      <div class="sidebar-header">
-        <!-- Homeボタン：data-tab="home" → section#home に対応 -->
-        <button class="sidebar-home" data-tab="home">
-          <span class="ri-home-line"></span>
-          <span>Home</span>
-        </button>
-      </div>
-      <ul class="sidebar-menu">
-        <!-- Converterタブ -->
-        <li class="sidebar-menu-item" data-tab="converter">
-          <span class="ri-scales-3-line"></span>
-          <span>Unit Converter</span>
-        </li>
-        <!-- Flashcardsタブ -->
-        <li class="sidebar-menu-item" data-tab="flashcards">
-          <span class="ri-question-answer-line"></span>
-          <span>Flashcards</span>
-        </li>
-      </ul>
-    </aside>
+    <!-- 独自のCSSファイル -->
+    <link rel="stylesheet" href="./style.css" />
+    <!-- アイコン -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+  </head>
 
-    <main class="main-content">
-      <!-- Homeセクション -->
-      <section class="content-section" id="home">
-        <header class="section-header">
-          <div class="profile-circle">
-            <span class="ri-user-smile-line"></span>
-          </div>
-          <h1 class="section-title">Welcome to Your Personal Dashboard</h1>
-          <p class="section-subtitle">Make your daily life more convenient and enjoyable</p>
-        </header>
-        <div class="section-body">
-          <div class="section-description">
-            <p>
-              This dashboard is a tool to enrich your daily life. You can easily use essential features such as diary entries, memo management, and checking weather information.
-            </p>
-            <p>
-              Small daily records become irreplaceable memories, and efficient task management leads to fulfilling days. Please use this as a partner that supports your everyday life.
-            </p>
-          </div>
+  <body>
+    <div class="dashboard-container">
+
+      <!-- ✅ サイドバー -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <button class="sidebar-home" data-tab="home">
+            <span class="ri-home-line"></span>
+            <span>Home</span>
+          </button>
         </div>
-      </section>
+        <ul class="sidebar-menu">
+          <li class="sidebar-menu-item" data-tab="converter">
+            <span class="ri-scales-3-line"></span>
+            <span>Unit Converter</span>
+          </li>
+          <li class="sidebar-menu-item" data-tab="flashcards">
+            <span class="ri-question-answer-line"></span>
+            <span>Flashcards</span>
+          </li>
+        </ul>
+      </aside>
 
-      <!-- Converterセクション -->
-      <section class="content-section hidden" id="converter">
-        <header class="section-header">
-          <h1 class="section-title">Length Unit Conversion</h1>
-        </header>
-        <div class="section-body">
-          <form class="converter-form">
-            <input class="converter-input" type="number" value="1000" />
-            <select class="converter-from"></select>
-            <span>=</span>
-            <div class="converter-result"></div>
-            <select class="converter-to"></select>
-          </form>
-        </div>
-      </section>
+      <!-- ✅ メインコンテンツ -->
+      <main class="main-content">
 
-      <!-- Flashcardsセクション -->
-      <section class="content-section hidden" id="flashcards">
-        <header class="section-header">
-          <h1 class="section-title">Flashcards</h1>
-        </header>
-        <div class="section-body">
-          <div class="add-word-container">
-            <button class="add-word-btn">
-              <span class="ri-add-line"></span>
-              <span>Add New Card</span>
-            </button>
+        <!-- 🏠 Home -->
+        <section class="content-section" id="home">
+          <header class="section-header">
+            <div class="profile-circle">
+              <span class="ri-user-smile-line"></span>
+            </div>
+            <h1 class="section-title">Welcome to Your Personal Dashboard</h1>
+            <p class="section-subtitle">
+              Make your daily life more convenient and enjoyable
+            </p>
+          </header>
+          <div class="section-body">
+            <div class="section-description">
+              <p>This dashboard is a tool to enrich your daily life.</p>
+              <p>Small daily records become irreplaceable memories, and efficient task management leads to fulfilling days.</p>
+            </div>
           </div>
+        </section>
 
-          <div id="word-modal" class="modal hidden">
-            <div class="modal-content">
-              <h2 class="modal-title">Add New Card</h2>
-              <form id="word-form" class="modal-form">
+        <!-- 📏 単位変換セクション（中央表示） -->
+        <section class="content-section hidden" id="converter">
+          <header class="section-header">
+            <h1 class="section-title">Length Unit Conversion</h1>
+          </header>
+          <div class="section-body converter-section-center">
+            <div class="converter-card">
+              <form class="converter-form">
                 <div class="form-group">
-                  <label class="form-label">Front (Word)</label>
-                  <input type="text" id="word-input" class="form-input" required />
+                  <label class="form-label">Convert Length</label>
                 </div>
                 <div class="form-group">
-                  <label class="form-label">Back (Meaning)</label>
-                  <textarea id="meaning-input" class="form-input" required></textarea>
+                  <label class="form-label">Value</label>
+                  <input type="number" class="form-input converter-input" value="1000" />
                 </div>
-                <div class="modal-actions">
-                  <button type="button" class="cancel-word-btn">Cancel</button>
-                  <button type="submit" class="save-word-btn">Save</button>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label">From</label>
+                    <select class="form-input converter-from"></select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">To</label>
+                    <select class="form-input converter-to"></select>
+                  </div>
+                </div>
+                <div class="converter-result-container">
+                  <label class="form-label">Result</label>
+                  <div class="converter-result">= 0</div>
                 </div>
               </form>
             </div>
           </div>
+        </section>
 
-          <!-- Flashcards表示用のリスト：IDをユニークに変更 -->
-          <div class="flashcards-list" id="flashcards-list-secondary"></div>
-        </div>
-      </section>
-    </main>
-  </div>
+        <!-- 🧠 Flashcards -->
+        <section class="content-section hidden" id="flashcards">
+          <header class="section-header">
+            <h1 class="section-title">Flashcards</h1>
+          </header>
+          <div class="section-body">
+            <div class="add-word-container">
+              <button class="add-word-btn">
+                <span class="ri-add-line"></span>
+                <span>Add New Card</span>
+              </button>
+            </div>
 
-  <script src="./main.js" type="module"></script>
-</body>
+            <!-- 📦 モーダル -->
+            <div id="word-modal" class="modal hidden">
+              <div class="modal-content">
+                <h2 class="modal-title">Add New Card</h2>
+                <form id="word-form" class="modal-form">
+                  <div class="form-group">
+                    <label class="form-label">Front (Word)</label>
+                    <input type="text" id="word-input" class="form-input" required />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Back (Meaning)</label>
+                    <textarea id="meaning-input" class="form-input" required></textarea>
+                  </div>
+                  <div class="modal-actions">
+                    <button type="button" class="cancel-word-btn">Cancel</button>
+                    <button type="submit" class="save-word-btn">Save</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <!-- 📚 表示用リスト -->
+            <div class="flashcards-list" id="flashcards-list-secondary"></div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+
+    <!-- ✅ JavaScriptを読み込み -->
+    <script type="module" src="./main.js"></script>
+  </body>
 </html>
