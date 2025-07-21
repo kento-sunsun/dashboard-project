@@ -10,11 +10,11 @@ async function fetchFlashcards() {
 
 // flashcards.js
 export function setupFlashcards() {
-  const openModalBtn = document.querySelector('.add-word-btn');
-  const closeModalBtn = document.querySelector('.cancel-word-btn');
-  const modal = document.querySelector('#word-modal');
-  const wordForm = document.querySelector('#word-form');
-  const flashcardsList = document.querySelector('#flashcards-list');
+    const openModalBtn = document.querySelector('.add-word-btn');
+    const closeModalBtn = document.querySelector('.cancel-word-btn');
+    const modal = document.querySelector('#word-modal');
+    const wordForm = document.querySelector('#word-form');
+    const flashcardsList = document.getElementById('#flashcards-list');
 
   if (!openModalBtn) return; // 要素がなければ何もしない
 
