@@ -521,3 +521,17 @@ ul {
     transform: translateY(0);
   }
 }
+.sidebar-home {
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #4f7cac;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.sidebar-home:hover {
+  background-color: #d9e7f3;
+}
