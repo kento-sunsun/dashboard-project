@@ -4,16 +4,16 @@
     <meta charset="UTF-8" />
     <title>Dashboard</title>
 
-    <!-- 独自のCSSファイル -->
+    <!-- Custom CSS file -->
     <link rel="stylesheet" href="./style.css" />
-    <!-- アイコン -->
+    <!-- Icons -->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
   </head>
 
   <body>
     <div class="dashboard-container">
 
-      <!-- ✅ サイドバー -->
+      <!-- ✅ Sidebar -->
       <aside class="sidebar">
         <div class="sidebar-header">
           <button class="sidebar-home" data-tab="home">
@@ -33,7 +33,7 @@
         </ul>
       </aside>
 
-      <!-- ✅ メインコンテンツ -->
+      <!-- ✅ Main Content -->
       <main class="main-content">
 
         <!-- 🏠 Home -->
@@ -55,7 +55,7 @@
           </div>
         </section>
 
-        <!-- 📏 単位変換セクション（中央表示） -->
+        <!-- 📏 Unit Converter -->
         <section class="content-section hidden" id="converter">
           <header class="section-header">
             <h1 class="section-title">Length Unit Conversion</h1>
@@ -102,7 +102,7 @@
               </button>
             </div>
 
-            <!-- 📦 モーダル -->
+            <!-- 📦 Modal -->
             <div id="word-modal" class="modal hidden">
               <div class="modal-content">
                 <h2 class="modal-title">Add New Card</h2>
@@ -123,7 +123,7 @@
               </div>
             </div>
 
-            <!-- 📚 表示用リスト -->
+            <!-- 📚 Flashcards List -->
             <div class="flashcards-list" id="flashcards-list-secondary"></div>
           </div>
         </section>
@@ -131,7 +131,7 @@
       </main>
     </div>
 
-    <!-- ✅ JavaScriptを読み込み -->
+    <!-- ✅ JavaScript -->
     <script type="module" src="./main.js"></script>
   </body>
 </html>
