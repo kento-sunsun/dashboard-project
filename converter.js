@@ -1,46 +1,56 @@
-const lengthUnits = [
-  { name: "meter", base: 1 },
-  { name: "kilometer", base: 1000 },
-  { name: "centimeter", base: 0.01 },
-  { name: "millimeter", base: 0.001 },
-  { name: "inch", base: 0.0254 },
-  { name: "foot", base: 0.3048 },
-  { name: "yard", base: 0.9144 },
-  { name: "mile", base: 1609.344 },
-];
-
 export function setupConverter() {
   const converterForm = document.querySelector(".converter-form");
-  const input = document.querySelector(".converter-input");
-  const fromSelect = document.querySelector(".converter-from");
-  const toSelect = document.querySelector(".converter-to");
-  const resultDiv = document.querySelector(".converter-result");
+  const inputValue = document.querySelector(".converter-input");
+  const fromUnit = document.querySelector(".converter-from");
+  const toUnit = document.querySelector(".converter-to");
+  const result = document.querySelector(".converter-result");
 
-  for (const unit of lengthUnits) {
-    const option = document.createElement("option");
-    option.value = unit.base;
-    option.textContent = unit.name;
-    fromSelect.appendChild(option.cloneNode(true));
-    toSelect.appendChild(option);
+  const lengthUnit = [
+    { name: "meter", base: 1 },
+    { name: "kilometer", base: 1000 },
+    { name: "centimeter", base: 0.01 },
+    { name: "millimeter", base: 0.001 },
+    { name: "inch", base: 0.0254 }, 
+    { name: "foot", base: 0.3048 },
+    { name: "yard", base: 0.9144 },
+    { name: "mile", base: 1609.344 }
+  ];
+
+  fromUnit.innerHTML = "";
+  toUnit.innerHTML = "";
+
+  for (const unit of lengthUnit) {
+    fromUnit.innerHTML += `<option value="${unit.base}">${unit.name}</option>`;
+    toUnit.innerHTML += `<option value="${unit.base}">${unit.name}</option>`;
   }
 
-  fromSelect.selectedIndex = 0; // meter
-  toSelect.selectedIndex = 1;   // kilometer
+  // 最初のオプションを選択
+  if (fromUnit.options.length > 0) {
+    fromUnit.selectedIndex = 0;
+  }
+  if (toUnit.options.length > 0) {
+    toUnit.selectedIndex = 1;
+  }
 
+  // 変換を実行
   function convert() {
-    const inputValue = parseFloat(input.value);
-    if (isNaN(inputValue)) {
-      resultDiv.textContent = "Please enter a valid number";
+    const value = parseFloat(inputValue.value);
+
+    if (isNaN(value)) {
+      result.textContent = "Please enter a valid number";
       return;
     }
-    const fromBase = parseFloat(fromSelect.value);
-    const toBase = parseFloat(toSelect.value);
-    const convertedValue = (inputValue * fromBase) / toBase;
-    const fromName = fromSelect.options[fromSelect.selectedIndex].textContent;
-    const toName = toSelect.options[toSelect.selectedIndex].textContent;
-    resultDiv.textContent = `${inputValue} ${fromName} = ${convertedValue.toFixed(3)} ${toName}`;
+
+    const fromBase = fromUnit.value;
+    const toBase = toUnit.value;
+    const converted = (value * fromBase) / toBase;
+
+    // 結果を3桁まで丸める
+    result.textContent = `${value} ${lengthUnit[fromUnit.selectedIndex].name} = ${converted.toFixed(3)} ${lengthUnit[toUnit.selectedIndex].name}`;
   }
 
   converterForm.addEventListener("input", convert);
-  convert();
+
+  // 初期化
+  convert(); // 初期値で変換を実行
 }
