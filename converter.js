@@ -1,12 +1,11 @@
 export function setupConverter() {
-  // DOM要素を取得
   const converterForm = document.querySelector(".converter-form");
   const inputValue = document.querySelector(".converter-input");
   const fromUnit = document.querySelector(".converter-from");
   const toUnit = document.querySelector(".converter-to");
   const result = document.querySelector(".converter-result");
 
-  // 単位の定義
+  // ユニットデータを定義
   const lengthUnits = [
     { name: "meter", base: 1 },
     { name: "kilometer", base: 1000 },
@@ -18,46 +17,42 @@ export function setupConverter() {
     { name: "mile", base: 1609.344 },
   ];
 
-  // 単位選択肢を動的に生成
-  function populateUnitOptions() {
+  // 選択肢を追加
+  function populateOptions() {
     fromUnit.innerHTML = "";
     toUnit.innerHTML = "";
 
-    for (const unit of lengthUnits) {
-      const optionFrom = `<option value="${unit.base}">${unit.name}</option>`;
-      const optionTo = `<option value="${unit.base}">${unit.name}</option>`;
-      fromUnit.innerHTML += optionFrom;
-      toUnit.innerHTML += optionTo;
-    }
+    lengthUnits.forEach((unit) => {
+      const option = `<option value="${unit.base}">${unit.name}</option>`;
+      fromUnit.innerHTML += option;
+      toUnit.innerHTML += option;
+    });
 
-    // デフォルト選択を設定
-    fromUnit.selectedIndex = 0; // 最初の単位
-    toUnit.selectedIndex = 1; // 2つ目の単位
+    fromUnit.selectedIndex = 0; // 初期値
+    toUnit.selectedIndex = 1; // 初期値
   }
 
-  // 変換ロジック
+  // 変換を実行
   function convert() {
     const value = parseFloat(inputValue.value);
-    const fromBase = parseFloat(fromUnit.value);
-    const toBase = parseFloat(toUnit.value);
+    const fromValue = parseFloat(fromUnit.value);
+    const toValue = parseFloat(toUnit.value);
 
     if (isNaN(value)) {
-      result.textContent = "Please enter a valid number";
+      result.textContent = "有効な数値を入力してください";
       return;
     }
 
-    const convertedValue = (value * fromBase) / toBase;
-    const fromName = lengthUnits[fromUnit.selectedIndex].name;
-    const toName = lengthUnits[toUnit.selectedIndex].name;
-
-    // 結果を表示
-    result.textContent = `${value} ${fromName} = ${convertedValue.toFixed(3)} ${toName}`;
+    const convertedValue = (value * fromValue) / toValue;
+    result.textContent = `${value} ${lengthUnits[fromUnit.selectedIndex].name} = ${convertedValue.toFixed(3)} ${lengthUnits[toUnit.selectedIndex].name}`;
   }
 
   // イベントリスナーを設定
-  converterForm.addEventListener("input", convert);
+  inputValue.addEventListener("input", convert);
+  fromUnit.addEventListener("change", convert);
+  toUnit.addEventListener("change", convert);
 
   // 初期化
-  populateUnitOptions();
-  convert(); // 初期値で計算を実行
+  populateOptions();
+  convert(); // 初期計算を実行
 }
